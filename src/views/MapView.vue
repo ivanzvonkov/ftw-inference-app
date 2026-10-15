@@ -90,7 +90,7 @@ watch(
     <PartnerLogos />
 
     <!-- About Dialog -->
-    <v-dialog v-model="aboutDialog" width="auto">
+    <!-- <v-dialog v-model="aboutDialog" width="auto">
       <v-card max-width="600" title="Welcome to the Fields of The World (FTW) Explorer">
         <v-card-text>
           <p class="mb-2">This app has two modes, switched at the top of the screen:</p>
@@ -117,7 +117,7 @@ watch(
           <v-btn variant="flat" color="primary" text="Ok" @click="closeAboutDialog"></v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-dialog> -->
   </div>
 </template>
 
