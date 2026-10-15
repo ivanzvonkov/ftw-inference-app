@@ -53,9 +53,9 @@ watch(
   { immediate: true },
 )
 
-function setModeValue(newValue: number) {
-  settings.value.mode = availableModes[newValue].id
-}
+// function setModeValue(newValue: number) {
+//   settings.value.mode = availableModes[newValue].id
+// }
 </script>
 
 <template>
@@ -67,7 +67,7 @@ function setModeValue(newValue: number) {
         class="logo"
         @click="openAboutDialog"
       />
-      <v-card variant="outlined" rounded="lg" class="switch">
+      <!-- <v-card variant="outlined" rounded="lg" class="switch">
         <span class="switch-label">Mode</span>
         <v-divider vertical></v-divider>
         <v-btn-toggle
@@ -82,7 +82,7 @@ function setModeValue(newValue: number) {
             {{ tab.label }}
           </v-btn>
         </v-btn-toggle>
-      </v-card>
+      </v-card> -->
     </header>
 
     <MapComponent />

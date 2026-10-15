@@ -64,7 +64,7 @@ const infoText = computed(() => {
   <div class="settings">
     <GeocodingSearch @location-selected="handleLocationSelected" />
     <v-radio-group v-model="layerSelection" :messages="[infoText]">
-      <v-radio label="Global Fields 2025" value="Global2025"></v-radio>
+      <!-- <v-radio label="Global Fields 2025" value="Global2025"></v-radio> -->
       <v-radio label="Global Fields 2024" value="Global2024"></v-radio>
       <template v-if="showSouthAmerica">
         <v-radio label="South America Fields 2024" value="SouthAmerica2024"></v-radio>
