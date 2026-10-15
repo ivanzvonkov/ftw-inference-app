@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue'
 import { Map, View } from 'ol'
 import { ScaleLine } from 'ol/control'
 import DataCabinet from './DataCabinet.vue'
-import GlobalFeedbackWidget from './GlobalFeedbackWidget.vue'
+//import GlobalFeedbackWidget from './GlobalFeedbackWidget.vue'
 import GlobalContributeModal from './GlobalContributeModal.vue'
 import ProcessingResults from './ProcessingResults.vue'
 import PropertiesDisplay from './PropertiesDisplay.vue'
@@ -146,7 +146,7 @@ defineExpose({
       @clearResults="clearResults"
     />
 
-    <GlobalFeedbackWidget v-if="map && settings.mode === 'global'" />
+    <!-- <GlobalFeedbackWidget v-if="map && settings.mode === 'global'" /> -->
 
     <v-btn
       class="contribute-fab"
