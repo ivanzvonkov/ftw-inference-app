@@ -22,7 +22,7 @@ import { type FeatureLike } from 'ol/Feature'
 import {
   createGlobalOverviewLayer,
   updateOverviewLayer,
-  createSouthAmericaOverviewLayer
+  createSouthAmericaOverviewLayer,
 } from '../layers/Global-Overview-Layers'
 import { inferenceStyle } from '../layers/color-scales'
 import useDownloadGrid from './useDownloadGrid'
@@ -108,24 +108,23 @@ watch(
     globalPredictionsController.value.layer.setOpacity(settings.value.opacity / 100)
     map.value.addLayer(globalPredictionsController.value.layer)
 
-    if (globalOverviewLayer.value){
+    if (globalOverviewLayer.value) {
       map.value.removeLayer(globalOverviewLayer.value)
     }
-    if (southAmericaOverviewLayer.value){
+    if (southAmericaOverviewLayer.value) {
       map.value.removeLayer(southAmericaOverviewLayer.value)
     }
 
-    if (settings.value.layerName == "Global2024" || settings.value.layerName == "Global2025" ){
+    if (settings.value.layerName == 'Global2024' || settings.value.layerName == 'Global2025') {
       globalOverviewLayer.value = createGlobalOverviewLayer(settings.value)
       globalOverviewLayer.value.setOpacity(settings.value.opacity / 100)
       map.value.addLayer(globalOverviewLayer.value)
-    } else if (settings.value.layerName == "SouthAmerica2024"){
+    } else if (settings.value.layerName == 'SouthAmerica2024') {
       southAmericaOverviewLayer.value = createSouthAmericaOverviewLayer(settings.value)
       southAmericaOverviewLayer.value.setOpacity(settings.value.opacity / 100)
       map.value.addLayer(southAmericaOverviewLayer.value)
     }
-  }
-  
+  },
 )
 
 watch(
@@ -193,17 +192,19 @@ const updateLayers = () => {
       globalPredictionsController.value.layer.setOpacity(settings.value.opacity / 100)
       map.value.addLayer(globalPredictionsController.value.layer)
     }
-    if (!globalOverviewLayer.value && (settings.value.layerName == "Global2024" || settings.value.layerName == "Global2025")) {
+    if (
+      !globalOverviewLayer.value &&
+      (settings.value.layerName == 'Global2024' || settings.value.layerName == 'Global2025')
+    ) {
       globalOverviewLayer.value = createGlobalOverviewLayer(settings.value)
       globalOverviewLayer.value.setOpacity(settings.value.opacity / 100)
       map.value.addLayer(globalOverviewLayer.value)
     }
-    if (!southAmericaOverviewLayer.value && settings.value.layerName == "SouthAmerica2024") {
+    if (!southAmericaOverviewLayer.value && settings.value.layerName == 'SouthAmerica2024') {
       southAmericaOverviewLayer.value = createSouthAmericaOverviewLayer(settings.value)
       southAmericaOverviewLayer.value.setOpacity(settings.value.opacity / 100)
       map.value.addLayer(southAmericaOverviewLayer.value)
     }
-    
 
     // Initialize the download grid layer (hidden by default until user toggles it on).
     // The layer persists across mode switches; visibility is driven by `settings.downloads`.

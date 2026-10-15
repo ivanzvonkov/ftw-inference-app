@@ -47,7 +47,7 @@ export const createGlobalOverviewLayer = (settings: Settings) => {
           nodata: 255,
           min: 0,
           max: 200,
-        }
+        },
       ],
       interpolate: false,
       sourceOptions: {
@@ -69,7 +69,7 @@ export const createSouthAmericaOverviewLayer = (settings: Settings) => {
           url: SOUTH_AMERICA_COG,
           nodata: 255,
           min: 0,
-          max: 1
+          max: 1,
         },
       ],
       interpolate: false,

@@ -29,19 +29,18 @@ const layer = new VectorTileLayer({
   declutter: false,
 })
 
-layer.setStyle((feature, resolution) => {  
-  
+layer.setStyle((feature, resolution) => {
   const confidence = feature.get(key)
   if (confidence <= currentThreshold) return undefined
 
   const color = viridis[feature.id_ % viridis.length]
   stroke.setColor(color)
-  fill.setColor(color + "80")
+  fill.setColor(color + '80')
 
   const extent = feature.getGeometry()!.getExtent()
   const widthPx = (extent[2] - extent[0]) / resolution
   const heightPx = (extent[3] - extent[1]) / resolution
-  
+
   if (widthPx < 3 && heightPx < 3) return smallStyle
   return polyStyle
 })

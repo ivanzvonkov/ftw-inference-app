@@ -16,7 +16,7 @@ export const inferenceStyle: FeatureStyle = {
   label: 'Inference',
 }
 
-export const viridis = ["#440154","#443983", "#31688e", "#21918c", "#35b779", "#90d743", "#fde725"]
+export const viridis = ['#440154', '#443983', '#31688e', '#21918c', '#35b779', '#90d743', '#fde725']
 
 export const areaColorScale: ColorStop[] = [
   { value: 0, color: viridis[0], label: '0' },

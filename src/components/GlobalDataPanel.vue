@@ -39,11 +39,13 @@ const layerSelection = computed({
     settings.value.layerName = name
     settings.value.year = get_layer_year(name)
     settings.value.downloads = false
-  }
+  },
 })
 const showSouthAmerica = true
-const isGlobal = computed(() => (settings.value.layerName === "Global2024" || settings.value.layerName === "Global2025"))
-const isSouthAmerica = computed(() => (settings.value.layerName === "SouthAmerica2024"))
+const isGlobal = computed(
+  () => settings.value.layerName === 'Global2024' || settings.value.layerName === 'Global2025',
+)
+const isSouthAmerica = computed(() => settings.value.layerName === 'SouthAmerica2024')
 const infoText = computed(() => {
   switch (layerSelection.value) {
     case 'Global2025':
@@ -56,7 +58,6 @@ const infoText = computed(() => {
       return ''
   }
 })
-
 </script>
 
 <template>
@@ -69,18 +70,16 @@ const infoText = computed(() => {
         <v-radio label="South America Fields 2024" value="SouthAmerica2024"></v-radio>
       </template>
       <template #message="{ message }">
-      <span v-html="message"></span>
-    </template>
+        <span v-html="message"></span>
+      </template>
     </v-radio-group>
 
-    <br/>
-    <br/>
+    <br />
+    <br />
 
     <v-row class="d-flex justify-center w-100 mx-auto mb-0">
       <v-col>
-        <div class="text-body-small">
-            Opacity
-        </div>
+        <div class="text-body-small">Opacity</div>
         <v-slider
           v-model.number="settings.opacity"
           :min="0"
@@ -91,11 +90,9 @@ const infoText = computed(() => {
           thumb-color="teal"
           hide-details
         />
-        <br/>
+        <br />
         <template v-if="isGlobal">
-          <div class="text-body-small">
-            Confidence Threshold {{ settings.threshold }}%
-          </div>
+          <div class="text-body-small">Confidence Threshold {{ settings.threshold }}%</div>
           <v-slider
             v-model.number="settings.threshold"
             :min="0"
@@ -116,31 +113,31 @@ const infoText = computed(() => {
             A high confidence threshold may hide most or all fields in this area.
             <v-btn @click="resetThreshold" size="small" class="mt-2"> Reset threshold </v-btn>
           </v-alert>
-          <br/>
+          <br />
         </template>
 
         <div class="group group-with-help">
           <div class="text-body-small">Download</div>
           <template v-if="isGlobal">
-              <v-menu open-on-hover :close-on-content-click="false" max-width="400">
-                <template #activator="{ props }">
-                  <v-icon :icon="mdiInformationOutline" size="small" v-bind="props"></v-icon>
-                </template>
-                <v-sheet class="pa-3 text-body-2">
-                  <p class="pb-2">
-                    After activation, click a tile to download the agricultural field boundary
-                    predictions for that 1° cell as a GeoParquet or GeoJSON file. The confidence
-                    threshold and opacity settings do not affect the downloaded data; all fields
-                    predicted by the model for the selected cell and year will be included.
-                  </p>
-                  <p>
-                    You can also download the entire dataset in various variants from
-                    <a href="https://source.coop/ftw/global-data/" target="_blank" rel="noopener"
-                      >our Source Cooperative repository</a
-                    >.
-                  </p>
-                </v-sheet>
-              </v-menu>
+            <v-menu open-on-hover :close-on-content-click="false" max-width="400">
+              <template #activator="{ props }">
+                <v-icon :icon="mdiInformationOutline" size="small" v-bind="props"></v-icon>
+              </template>
+              <v-sheet class="pa-3 text-body-2">
+                <p class="pb-2">
+                  After activation, click a tile to download the agricultural field boundary
+                  predictions for that 1° cell as a GeoParquet or GeoJSON file. The confidence
+                  threshold and opacity settings do not affect the downloaded data; all fields
+                  predicted by the model for the selected cell and year will be included.
+                </p>
+                <p>
+                  You can also download the entire dataset in various variants from
+                  <a href="https://source.coop/ftw/global-data/" target="_blank" rel="noopener"
+                    >our Source Cooperative repository</a
+                  >.
+                </p>
+              </v-sheet>
+            </v-menu>
           </template>
         </div>
         <template v-if="isGlobal">
@@ -161,10 +158,11 @@ const infoText = computed(() => {
               Click any grid cell on the map to download.
             </p>
           </template>
-          
         </template>
         <template v-if="isSouthAmerica">
-          <div class="text-body-small">Fields can be downloaded from <a href="source.coop">source.coop</a>.</div>
+          <div class="text-body-small">
+            Fields can be downloaded from <a href="source.coop">source.coop</a>.
+          </div>
         </template>
       </v-col>
     </v-row>

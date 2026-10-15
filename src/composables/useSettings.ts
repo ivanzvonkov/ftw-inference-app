@@ -53,7 +53,7 @@ export const defaultThreshold = 70
 const defaultSettings: Settings = {
   autoSceneSelection: true,
   year: 2025,
-  layerName: "Global2025",
+  layerName: 'Global2025',
   startMonth: 0,
   endMonth: 0,
   cloudCover: 20,
@@ -171,31 +171,35 @@ export const GLOBAL_DATA_PMTILES_THRESHOLD_METRIC = 'mean' // median / mean / mi
 export const GLOBAL_DATA_MAP_COMPLETE_ZOOM_LEVEL = 12
 export const GLOBAL_DATA_MAP_FIELD_START_ZOOM_LEVEL = 11
 
-const GLOBAL_2025_PMTILES = "https://data.source.coop/ftw/global-field-boundaries/pmtiles/ftw-global-fields-2025.pmtiles"
-const GLOBAL_2024_PMTILES = "https://data.source.coop/ftw/global-data/predictions/vectors/alpha/2024_with_confidence.pmtiles"
-const SOUTH_AMERICA_2024_PMTILES = "https://storage.googleapis.com/ftw-bucket-public/pmtiles/SouthAmerica.pmtiles"
+const GLOBAL_2025_PMTILES =
+  'https://data.source.coop/ftw/global-field-boundaries/pmtiles/ftw-global-fields-2025.pmtiles'
+const GLOBAL_2024_PMTILES =
+  'https://data.source.coop/ftw/global-data/predictions/vectors/alpha/2024_with_confidence.pmtiles'
+const SOUTH_AMERICA_2024_PMTILES =
+  'https://storage.googleapis.com/ftw-bucket-public/pmtiles/SouthAmerica.pmtiles'
 const layerNameToPmtiles: Record<string, string> = {
-  "Global2025": GLOBAL_2025_PMTILES,
-  "Global2024": GLOBAL_2024_PMTILES,
-  "SouthAmerica2024": SOUTH_AMERICA_2024_PMTILES,
+  Global2025: GLOBAL_2025_PMTILES,
+  Global2024: GLOBAL_2024_PMTILES,
+  SouthAmerica2024: SOUTH_AMERICA_2024_PMTILES,
 }
 export const get_pmtiles_url = (layerName: string) => {
   return layerNameToPmtiles[layerName] ?? GLOBAL_2025_PMTILES
 }
 const layerNameToYear: Record<string, number> = {
-  "Global2025": 2025,
-  "Global2024": 2024,
-  "SouthAmerica2024": 2024,
+  Global2025: 2025,
+  Global2024: 2024,
+  SouthAmerica2024: 2024,
 }
 export const get_layer_year = (layerName: string) => {
   return layerNameToYear[layerName] ?? 2025
-} 
+}
 
 export const CONFIDENCE_OVERVIEW_COG =
   'https://data.source.coop/ftw/global-data/predictions/confidence/confidence/prue_v1_confidence_global_uint8_3857.tif'
 export const AREA_OVERVIEW_COG =
   'https://data.source.coop/ftw/global-data/predictions/confidence/field-density/prue_v1_field_area_500m_fieldsonly_uint8_3857.tif'
-export const SOUTH_AMERICA_COG = 'https://storage.googleapis.com/ftw-bucket-public/COG/South_America_500.tif'  
+export const SOUTH_AMERICA_COG =
+  'https://storage.googleapis.com/ftw-bucket-public/COG/South_America_500.tif'
 
 export default function useSettings() {
   return {
