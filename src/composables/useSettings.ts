@@ -191,11 +191,10 @@ export const get_layer_year = (layerName: string) => {
   return layerNameToYear[layerName] ?? 2025
 } 
 
-export const AREA_OVERVIEW_COG =
-'https://data.source.coop/ftw/global-data/predictions/confidence/confidence/prue_v1_confidence_global_uint8_3857.tif'
 export const CONFIDENCE_OVERVIEW_COG =
-'https://data.source.coop/ftw/global-data/predictions/confidence/field-density/prue_v1_field_area_500m_fieldsonly_uint8_3857.tif'
-
+  'https://data.source.coop/ftw/global-data/predictions/confidence/confidence/prue_v1_confidence_global_uint8_3857.tif'
+export const AREA_OVERVIEW_COG =
+  'https://data.source.coop/ftw/global-data/predictions/confidence/field-density/prue_v1_field_area_500m_fieldsonly_uint8_3857.tif'
 export const SOUTH_AMERICA_COG = 'https://storage.googleapis.com/ftw-bucket-public/COG/South_America_500.tif'  
 
 export default function useSettings() {

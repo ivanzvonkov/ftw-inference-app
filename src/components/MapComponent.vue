@@ -266,8 +266,15 @@ defineExpose({
 .contribute-fab {
   position: absolute;
   right: 1rem;
-  bottom: 1rem;
+  bottom: 6rem;
   z-index: 1001;
+}
+
+@media (width <= 600px) {
+  .contribute-fab {
+    top: 4.5rem;
+    bottom: auto;
+  }
 }
 
 #critical {
