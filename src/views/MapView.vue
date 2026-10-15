@@ -18,10 +18,10 @@ function openAboutDialog() {
   aboutDialog.value = true
 }
 
-function closeAboutDialog() {
-  localStorage.setItem('ftw-about-dialog-shown', String(dontShowAgain.value))
-  aboutDialog.value = false
-}
+// function closeAboutDialog() {
+//   localStorage.setItem('ftw-about-dialog-shown', String(dontShowAgain.value))
+//   aboutDialog.value = false
+// }
 
 let focusTimeout: ReturnType<typeof setTimeout> | null = null
 watch(aboutDialog, (isOpen, wasOpen) => {
