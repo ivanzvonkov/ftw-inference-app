@@ -4,7 +4,6 @@ import { mdiInformationOutline } from '@mdi/js'
 import useSettings from '../composables/useSettings'
 import { get_layer_year } from '../composables/useSettings'
 import useMap from '../composables/useMap'
-import { getEffectiveCloudlessYear } from '../layers/S2-Cloudless-Layer'
 import useAreaOfInterest from '../composables/useAreaOfInterest'
 import type { PlaceResult } from '../composables/useAreaOfInterest'
 import useNotifier from '../composables/useNotifier'
@@ -15,9 +14,6 @@ import GeocodingSearch from './GeocodingSearch.vue'
 const { settings, defaultSettings } = useSettings()
 const { map } = useMap()
 
-const basemapYearMismatch = computed(
-  () => settings.value.year !== getEffectiveCloudlessYear(settings.value.year),
-)
 const thresholdMayHideFields = computed(() => settings.value.threshold >= 90)
 const resetThreshold = () => {
   settings.value.threshold = defaultSettings.threshold
