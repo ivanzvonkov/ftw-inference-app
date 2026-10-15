@@ -33,7 +33,8 @@ layer.setStyle((feature, resolution) => {
   const confidence = feature.get(key)
   if (confidence <= currentThreshold) return undefined
 
-  const color = viridis[feature.id_ % viridis.length]
+  const featureId = feature.getId() as number
+  const color = viridis[featureId % viridis.length]
   stroke.setColor(color)
   fill.setColor(color + '80')
 
