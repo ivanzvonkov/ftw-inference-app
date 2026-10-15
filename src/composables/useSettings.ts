@@ -52,8 +52,8 @@ export const defaultThreshold = 70
 // Default settings
 const defaultSettings: Settings = {
   autoSceneSelection: true,
-  year: 2025,
-  layerName: 'Global2025',
+  year: 2024,
+  layerName: 'Global2024',
   startMonth: 0,
   endMonth: 0,
   cloudCover: 20,
