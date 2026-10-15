@@ -79,7 +79,7 @@ const onLocationSelected = (item: { value: PlaceResult; title: string } | null) 
       v-model:search="placeSearch"
       :loading="isLoadingPlaces"
       :items="suggestedPlaces"
-      label="Search a place or address…"
+      label="Search"
       item-title="title"
       return-object
       hide-details

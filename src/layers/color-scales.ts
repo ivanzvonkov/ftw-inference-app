@@ -16,9 +16,15 @@ export const inferenceStyle: FeatureStyle = {
   label: 'Inference',
 }
 
+export const viridis = ["#440154","#443983", "#31688e", "#21918c", "#35b779", "#90d743", "#fde725"]
+
 export const areaColorScale: ColorStop[] = [
-  { value: 0, color: '#ff00ee', label: '0' },
-  { value: 1, color: '#00ff00', label: '100' },
+  { value: 0, color: viridis[0], label: '0' },
+  { value: 0.2, color: viridis[2], label: '20' },
+  { value: 0.3, color: viridis[3], label: '30' },
+  { value: 0.4, color: viridis[4], label: '40' },
+  { value: 0.5, color: viridis[6], label: '50' },
+  { value: 1, color: viridis[6], label: '100' },
 ]
 
 const CONFIDENCE_MAX = 0.578178 // before scaling, ratio [0-1]

@@ -4,6 +4,7 @@ import {
   AREA_OVERVIEW_COG,
   CONFIDENCE_OVERVIEW_COG,
   GLOBAL_DATA_MAP_FIELD_START_ZOOM_LEVEL,
+  SOUTH_AMERICA_COG,
   type Settings,
 } from '../composables/useSettings'
 import { areaColorScale, thresholdToRaw, type ColorStop } from './color-scales'
@@ -46,6 +47,29 @@ export const createGlobalOverviewLayer = (settings: Settings) => {
           nodata: 255,
           min: 0,
           max: 200,
+        }
+      ],
+      interpolate: false,
+      sourceOptions: {
+        blockSize: 512 * 1024, // 512KB: capture all IFDs in 1-2 requests instead of 100+
+      },
+    }),
+    minZoom: 0,
+    maxZoom: GLOBAL_DATA_MAP_FIELD_START_ZOOM_LEVEL,
+  })
+  updateOverviewLayer(layer, settings)
+  return layer
+}
+
+export const createSouthAmericaOverviewLayer = (settings: Settings) => {
+  const layer = new GlTileLayer({
+    source: new GeoTIFF({
+      sources: [
+        {
+          url: SOUTH_AMERICA_COG,
+          nodata: 255,
+          min: 0,
+          max: 1
         },
       ],
       interpolate: false,
@@ -56,10 +80,10 @@ export const createGlobalOverviewLayer = (settings: Settings) => {
     minZoom: 0,
     maxZoom: GLOBAL_DATA_MAP_FIELD_START_ZOOM_LEVEL,
   })
-  updateGlobalOverviewLayer(layer, settings)
+  updateOverviewLayer(layer, settings)
   return layer
 }
 
-export const updateGlobalOverviewLayer = (layer: GlTileLayer, settings: Settings) => {
+export const updateOverviewLayer = (layer: GlTileLayer, settings: Settings) => {
   layer.setStyle(overviewStyle(settings))
 }

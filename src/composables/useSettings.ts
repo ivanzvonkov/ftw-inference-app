@@ -3,6 +3,7 @@ import { computed, ref, watch, shallowRef } from 'vue'
 export interface Settings {
   autoSceneSelection: boolean
   year: number
+  layerName: string
   startMonth: number
   endMonth: number
   cloudCover: number
@@ -32,7 +33,7 @@ const defaultMode = 'global'
 const availableModes: { id: string; label: string }[] = [
   {
     id: 'global',
-    label: 'Global',
+    label: 'Fields',
   },
   {
     id: 'inference',
@@ -51,7 +52,8 @@ export const defaultThreshold = 70
 // Default settings
 const defaultSettings: Settings = {
   autoSceneSelection: true,
-  year: new Date().getFullYear() - 1,
+  year: 2025,
+  layerName: "Global2025",
   startMonth: 0,
   endMonth: 0,
   cloudCover: 20,
@@ -168,18 +170,33 @@ const modelIsSingleShot = computed(() => {
 export const GLOBAL_DATA_PMTILES_THRESHOLD_METRIC = 'mean' // median / mean / min
 export const GLOBAL_DATA_MAP_COMPLETE_ZOOM_LEVEL = 12
 export const GLOBAL_DATA_MAP_FIELD_START_ZOOM_LEVEL = 11
-export const get_global_pmtiles_url = (year: number) => {
-  if (year === 2025) {
-    return `https://data.source.coop/ftw/global-field-boundaries/pmtiles/ftw-global-fields-${year}.pmtiles`
-  } else {
-    return `https://data.source.coop/ftw/global-data/predictions/vectors/alpha/${year}_with_confidence.pmtiles`
-  }
+
+const GLOBAL_2025_PMTILES = "https://data.source.coop/ftw/global-field-boundaries/pmtiles/ftw-global-fields-2025.pmtiles"
+const GLOBAL_2024_PMTILES = "https://data.source.coop/ftw/global-data/predictions/vectors/alpha/2024_with_confidence.pmtiles"
+const SOUTH_AMERICA_2024_PMTILES = "https://storage.googleapis.com/ftw-bucket-public/pmtiles/SouthAmerica.pmtiles"
+const layerNameToPmtiles: Record<string, string> = {
+  "Global2025": GLOBAL_2025_PMTILES,
+  "Global2024": GLOBAL_2024_PMTILES,
+  "SouthAmerica2024": SOUTH_AMERICA_2024_PMTILES,
 }
+export const get_pmtiles_url = (layerName: string) => {
+  return layerNameToPmtiles[layerName] ?? GLOBAL_2025_PMTILES
+}
+const layerNameToYear: Record<string, number> = {
+  "Global2025": 2025,
+  "Global2024": 2024,
+  "SouthAmerica2024": 2024,
+}
+export const get_layer_year = (layerName: string) => {
+  return layerNameToYear[layerName] ?? 2025
+} 
 
 export const AREA_OVERVIEW_COG =
-  'https://data.source.coop/ftw/global-data/predictions/confidence/confidence/prue_v1_confidence_global_uint8_3857.tif'
+'https://data.source.coop/ftw/global-data/predictions/confidence/confidence/prue_v1_confidence_global_uint8_3857.tif'
 export const CONFIDENCE_OVERVIEW_COG =
-  'https://data.source.coop/ftw/global-data/predictions/confidence/field-density/prue_v1_field_area_500m_fieldsonly_uint8_3857.tif'
+'https://data.source.coop/ftw/global-data/predictions/confidence/field-density/prue_v1_field_area_500m_fieldsonly_uint8_3857.tif'
+
+export const SOUTH_AMERICA_COG = 'https://storage.googleapis.com/ftw-bucket-public/COG/South_America_500.tif'  
 
 export default function useSettings() {
   return {

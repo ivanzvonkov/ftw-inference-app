@@ -3,7 +3,7 @@ import ImageTileSource from 'ol/source/ImageTile'
 import {
   GLOBAL_DATA_PMTILES_THRESHOLD_METRIC,
   GLOBAL_DATA_MAP_FIELD_START_ZOOM_LEVEL,
-  get_global_pmtiles_url,
+  get_pmtiles_url,
   type Settings,
 } from '../composables/useSettings'
 import { thresholdToRaw } from './color-scales'
@@ -21,7 +21,7 @@ export function createGlobalPredictionsLayer(settings: Settings): GlobalPredicti
 
   worker.postMessage({
     action: 'init',
-    url: get_global_pmtiles_url(settings.year),
+    url: get_pmtiles_url(settings.layerName),
     threshold: thresholdToRaw(settings.threshold),
   })
 

@@ -21,7 +21,8 @@ import { Fill, Stroke, Style } from 'ol/style'
 import { type FeatureLike } from 'ol/Feature'
 import {
   createGlobalOverviewLayer,
-  updateGlobalOverviewLayer,
+  updateOverviewLayer,
+  createSouthAmericaOverviewLayer
 } from '../layers/Global-Overview-Layers'
 import { inferenceStyle } from '../layers/color-scales'
 import useDownloadGrid from './useDownloadGrid'
@@ -88,19 +89,43 @@ watch(
       // Insert at index 0 to keep it as the base layer
       map.value.getLayers().insertAt(0, cloudlessLayer.value)
     }
-
-    if (settings.value.mode === 'global') {
-      if (globalPredictionsController.value) {
-        map.value.removeLayer(globalPredictionsController.value.layer)
-        globalPredictionsController.value.dispose()
-        globalPredictionsController.value = null
-      }
-
-      globalPredictionsController.value = createGlobalPredictionsLayer(settings.value)
-      globalPredictionsController.value.layer.setOpacity(settings.value.opacity / 100)
-      map.value.addLayer(globalPredictionsController.value.layer)
-    }
   },
+)
+
+watch(
+  () => settings.value.layerName,
+  () => {
+    if (!map.value) {
+      return
+    }
+    if (globalPredictionsController.value) {
+      map.value.removeLayer(globalPredictionsController.value.layer)
+      globalPredictionsController.value.dispose()
+      globalPredictionsController.value = null
+    }
+
+    globalPredictionsController.value = createGlobalPredictionsLayer(settings.value)
+    globalPredictionsController.value.layer.setOpacity(settings.value.opacity / 100)
+    map.value.addLayer(globalPredictionsController.value.layer)
+
+    if (globalOverviewLayer.value){
+      map.value.removeLayer(globalOverviewLayer.value)
+    }
+    if (southAmericaOverviewLayer.value){
+      map.value.removeLayer(southAmericaOverviewLayer.value)
+    }
+
+    if (settings.value.layerName == "Global2024" || settings.value.layerName == "Global2025" ){
+      globalOverviewLayer.value = createGlobalOverviewLayer(settings.value)
+      globalOverviewLayer.value.setOpacity(settings.value.opacity / 100)
+      map.value.addLayer(globalOverviewLayer.value)
+    } else if (settings.value.layerName == "SouthAmerica2024"){
+      southAmericaOverviewLayer.value = createSouthAmericaOverviewLayer(settings.value)
+      southAmericaOverviewLayer.value.setOpacity(settings.value.opacity / 100)
+      map.value.addLayer(southAmericaOverviewLayer.value)
+    }
+  }
+  
 )
 
 watch(
@@ -109,6 +134,7 @@ watch(
     const olOpacity = opacity / 100
     globalPredictionsController.value?.layer.setOpacity(olOpacity)
     globalOverviewLayer.value?.setOpacity(olOpacity)
+    southAmericaOverviewLayer.value?.setOpacity(olOpacity)
   },
 )
 
@@ -124,6 +150,7 @@ const initCloudlessLayer = () => {
 const s2GridLayer = shallowRef<VectorLayer<VectorSource> | null>(null)
 const globalPredictionsController = shallowRef<GlobalPredictionsController | null>(null)
 const globalOverviewLayer = shallowRef<GlTileLayer | null>(null)
+const southAmericaOverviewLayer = shallowRef<GlTileLayer | null>(null)
 
 let thresholdDebounce: ReturnType<typeof setTimeout> | null = null
 watch(
@@ -132,7 +159,7 @@ watch(
     if (thresholdDebounce) clearTimeout(thresholdDebounce)
     thresholdDebounce = setTimeout(() => {
       if (globalOverviewLayer.value) {
-        updateGlobalOverviewLayer(globalOverviewLayer.value, settings.value)
+        updateOverviewLayer(globalOverviewLayer.value, settings.value)
       }
       if (globalPredictionsController.value) {
         globalPredictionsController.value.update(settings.value)
@@ -166,11 +193,17 @@ const updateLayers = () => {
       globalPredictionsController.value.layer.setOpacity(settings.value.opacity / 100)
       map.value.addLayer(globalPredictionsController.value.layer)
     }
-    if (!globalOverviewLayer.value) {
+    if (!globalOverviewLayer.value && (settings.value.layerName == "Global2024" || settings.value.layerName == "Global2025")) {
       globalOverviewLayer.value = createGlobalOverviewLayer(settings.value)
       globalOverviewLayer.value.setOpacity(settings.value.opacity / 100)
       map.value.addLayer(globalOverviewLayer.value)
     }
+    if (!southAmericaOverviewLayer.value && settings.value.layerName == "SouthAmerica2024") {
+      southAmericaOverviewLayer.value = createSouthAmericaOverviewLayer(settings.value)
+      southAmericaOverviewLayer.value.setOpacity(settings.value.opacity / 100)
+      map.value.addLayer(southAmericaOverviewLayer.value)
+    }
+    
 
     // Initialize the download grid layer (hidden by default until user toggles it on).
     // The layer persists across mode switches; visibility is driven by `settings.downloads`.

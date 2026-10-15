@@ -37,7 +37,7 @@ const toggleCollapsible = () => {
         </v-icon>
         <span class="title text-white">
           <template v-if="settings.mode === 'inference'"> Custom Processing </template>
-          <template v-else> Global Predictions </template>
+          <template v-else> Fields </template>
         </span>
       </div>
     </v-card-title>

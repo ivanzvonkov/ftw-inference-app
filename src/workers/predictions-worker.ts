@@ -4,7 +4,7 @@ import VectorTileLayer from 'ol/layer/VectorTile'
 import { PMTilesVectorSource } from 'ol-pmtiles'
 import { Fill, Stroke, Style } from 'ol/style'
 import { createXYZ } from 'ol/tilegrid'
-import { confidenceColorScale, getColorForValue } from '../layers/color-scales'
+import { viridis } from '../layers/color-scales'
 
 const TILE_SIZE = 512
 const tileGrid = createXYZ({ tileSize: [TILE_SIZE, TILE_SIZE] })
@@ -29,15 +29,20 @@ const layer = new VectorTileLayer({
   declutter: false,
 })
 
-layer.setStyle((feature, resolution) => {
+layer.setStyle((feature, resolution) => {  
+  
   const confidence = feature.get(key)
   if (confidence <= currentThreshold) return undefined
-  stroke.setColor(getColorForValue(confidenceColorScale, confidence, 1))
+
+  const color = viridis[feature.id_ % viridis.length]
+  stroke.setColor(color)
+  fill.setColor(color + "80")
+
   const extent = feature.getGeometry()!.getExtent()
   const widthPx = (extent[2] - extent[0]) / resolution
   const heightPx = (extent[3] - extent[1]) / resolution
+  
   if (widthPx < 3 && heightPx < 3) return smallStyle
-  fill.setColor(getColorForValue(confidenceColorScale, confidence, 0.5))
   return polyStyle
 })
 
